@@ -29,6 +29,43 @@ class ItemOrder extends StatefulWidget {
 }
 
 class _ItemOrderState extends State<ItemOrder> {
+  String getstate(int index) {
+    switch (index) {
+      case 0:
+        return 'Acceptance';
+      case 1:
+        return 'In preparation';
+      case 2:
+        return 'Delivery';
+      case 3:
+        return 'Completed';
+      case 4:
+        return 'Order Denied';
+      case 5:
+        return 'Cancel';
+      default:
+        return 'Eerror';
+    }
+  }
+
+  Color getColor(int index) {
+    switch (index) {
+      case 0:
+        return Colors.grey.shade600;
+      case 1:
+        return Colors.black;
+      case 2:
+        return AppColors.colorprimer;
+      case 3:
+        return Colors.green;
+      case 4:
+      case 5:
+        return Colors.red;
+      default:
+        return Colors.black;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -56,7 +93,14 @@ class _ItemOrderState extends State<ItemOrder> {
                         fontSize: 14,
                       ),
                     ),
-                    const Gap(20),
+                    Text(
+                      getstate(int.parse(widget.data!['status'].toString())),
+                      style: getbodyStyle(
+                          color: getColor(
+                              int.parse(widget.data!['status'].toString())),
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
+                    ),
                     Text(
                       '${double.parse(widget.data!["Net"].toString()).toStringAsFixed(2)} EG',
                       style: getbodyStyle(
@@ -140,30 +184,32 @@ class _ItemOrderState extends State<ItemOrder> {
                       },
                     )),
                     const Gap(10),
-                    Expanded(
-                        child: InkWell(
-                      onTap: () {
-                        widget.outline.call();
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: const Color(0xffff7622),
-                          ),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Center(
-                          child: Text(widget.outlinetext,
-                              textAlign: TextAlign.center,
-                              style: getbodyStyle(
-                                  fontSize: 14,
+                    int.parse(widget.data!['status'].toString()) != 3
+                        ? Expanded(
+                            child: InkWell(
+                            onTap: () {
+                              widget.outline.call();
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                border: Border.all(
                                   color: const Color(0xffff7622),
-                                  fontWeight: FontWeight.w700)),
-                        ),
-                      ),
-                    ))
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Center(
+                                child: Text(widget.outlinetext,
+                                    textAlign: TextAlign.center,
+                                    style: getbodyStyle(
+                                        fontSize: 14,
+                                        color: const Color(0xffff7622),
+                                        fontWeight: FontWeight.w700)),
+                              ),
+                            ),
+                          ))
+                        : const SizedBox()
                   ],
                 )
               ],

@@ -33,7 +33,9 @@ class _OrderDetailViewState extends State<OrderDetailView> {
             'Order ID #455254',
             style: getbodyStyle(fontSize: 17, fontWeight: FontWeight.normal),
           ),
-          actioniamage: 'assets/payment.png',
+          actioniamage: int.parse(widget.invoicedata!['status'].toString()) != 3
+              ? 'assets/payment.png'
+              : null,
           ontapAction: () => {
                 showDialog(
                     barrierDismissible: false,
