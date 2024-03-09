@@ -1,9 +1,10 @@
 import 'package:coody_delivery/core/utils/colors.dart';
+import 'package:coody_delivery/features/home/home_view.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,22 +22,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        // BlocProvider<AuthCubit>(
-        //   create: (BuildContext context) => AuthCubit(),
-        // ),
-        // BlocProvider<ProfileCubit>(
-        //   create: (BuildContext context) => ProfileCubit(),
-        // ),
-        // BlocProvider<CartCubit>(
-        //   create: (BuildContext context) => CartCubit(),
-        // ),
-        // BlocProvider<CheckoutCubit>(
-        //   create: (BuildContext context) => CheckoutCubit(),
-        // ),
-      ],
-      child: MaterialApp(
+    return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: AppColors.colorprimer,
@@ -45,29 +31,29 @@ class MainApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.white,
 
           snackBarTheme: const SnackBarThemeData(backgroundColor: Colors.red),
-          inputDecorationTheme: InputDecorationTheme(
-            fillColor: const Color(0xfff0f5fa),
+          inputDecorationTheme: const InputDecorationTheme(
+            fillColor: Color(0xfff0f5fa),
             alignLabelWithHint: true,
 
-            // contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-            hintStyle: GoogleFonts.sen().copyWith(
+            // // contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+            hintStyle: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                color: const Color(0xff31343d)),
-            enabledBorder: const OutlineInputBorder(
+                color: Color(0xff31343d)),
+            enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: Color(0xfff0f5fa),
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(10))),
-            focusedBorder: const OutlineInputBorder(
+            focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xfff0f5fa)),
                 borderRadius: BorderRadius.all(Radius.circular(10))),
-            focusedErrorBorder: const OutlineInputBorder(
+            focusedErrorBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: Color(0xfff0f5fa),
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(10))),
-            errorBorder: const OutlineInputBorder(
+            errorBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: Color(0xfff0f5fa),
                 ),
@@ -75,12 +61,6 @@ class MainApp extends StatelessWidget {
           ),
           // useMaterial3: false
         ),
-        home: Scaffold(
-          body: Center(
-            child: Text('Hello World!'),
-          ),
-        ),
-      ),
-    );
+        home: HomeView());
   }
 }
